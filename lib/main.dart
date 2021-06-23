@@ -1,54 +1,28 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'Dashboard.dart';
-import 'Promo.dart';
-import 'pengguna_lain.dart';
+import 'package:provider/provider.dart';
+import 'package:ruang_loak/auth/auth.dart';
+import 'package:ruang_loak/auth/auth1.dart';
+import 'package:ruang_loak/tree.dart';
 
-void main() {
-  runApp(new MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: "ruang_loak",
-      theme: ThemeData(
-        primarySwatch: Colors.green,
-      ),
-      home: NavBot()));
+Future<void> main() async {
+  runApp(MyApp());
 }
 
-class NavBot extends StatefulWidget {
-  @override
-  _NavBotState createState() => _NavBotState();
-}
-
-class _NavBotState extends State<NavBot> {
-  int _selectedIndex = 0;
-  List<Widget> _widgetOption = <Widget>[
-    Dashboard(),
-    Promo(),
-    PenggunaLain(),
-  ];
-
-  void _onItemTap(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-  }
-
+class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: _widgetOption.elementAt(_selectedIndex),
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(icon: Icon(Icons.home), title: Text("Home")),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.assignment), title: Text("Promo")),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.person_add), title: Text("Tambah Teman"))
-        ],
-        currentIndex: _selectedIndex,
-        onTap: _onItemTap,
+    return ChangeNotifierProvider(
+      create: (ctx) => Auth(),
+      builder: (context, child) => MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: "Ruang_Loak",
+        theme: ThemeData(
+          primarySwatch: Colors.green,
+        ),
+        home: LoginPage(),
       ),
     );
   }
 }
+

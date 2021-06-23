@@ -16,7 +16,7 @@ class EditPenjualan extends StatelessWidget {
 
   Future updateData() async {
     final response = await http.put(
-        Uri.parse("http://192.168.1.4:80/api/barang/" + input['id'].toString()),
+        Uri.parse("http://192.168.223.162:80/api/barang/" + input['id'].toString()),
         body: {
           "namabrg": namabrgController.text,
           "deskripsi": deskripsiController.text,

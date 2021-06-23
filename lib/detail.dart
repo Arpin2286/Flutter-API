@@ -1,14 +1,10 @@
 import 'package:flutter/material.dart';
 
+import 'Pembelian/PembelianService.dart';
+import 'Pembelian/pembelian.dart';
+
 class DetailProduk extends StatefulWidget {
-  DetailProduk(
-      {Key key,
-      this.nama,
-      this.deskripsi,
-      this.harga,
-      this.image,
-      this.star,
-      this.lokasi})
+  DetailProduk({Key key, this.nama, this.deskripsi, this.harga, this.image, this.star, this.lokasi})
       : super(key: key);
   final String nama;
   final String deskripsi;
@@ -33,6 +29,12 @@ class _DetailProdukState extends State<DetailProduk> {
     }
     return Scaffold(
         appBar: new AppBar(title: new Text("${widget.nama}")),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            formdialog(context);
+          },
+          child: Icon(Icons.money),
+        ),
         body: new Container(
           width: double.infinity,
           child: new ListView(
@@ -59,9 +61,7 @@ class _DetailProdukState extends State<DetailProduk> {
                             ),
                             Text(
                               this.widget.lokasi,
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white),
+                              style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
                             ),
                           ],
                         )
@@ -70,9 +70,7 @@ class _DetailProdukState extends State<DetailProduk> {
                     new Container(
                       child: new Text("Rp " + this.widget.harga.toString(),
                           style: new TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white)),
+                              fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white)),
                     )
                   ],
                 ),
@@ -85,10 +83,8 @@ class _DetailProdukState extends State<DetailProduk> {
                   children: [
                     Text(
                       "Simpan ke Keranjang ",
-                      style: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white),
+                      style:
+                          TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.white),
                     ),
                     Icon(
                       Icons.add_shopping_cart,
@@ -109,8 +105,7 @@ class _DetailProdukState extends State<DetailProduk> {
                       alignment: Alignment.bottomLeft,
                       child: Text(
                         "Deskripsi Produk :",
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 17),
+                        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17),
                       ),
                     ),
                     Text(
@@ -124,4 +119,71 @@ class _DetailProdukState extends State<DetailProduk> {
           ),
         ));
   }
+}
+
+formdialog(BuildContext context) {
+  var _pembelianNameController = TextEditingController();
+  var _pembelianLokasiController = TextEditingController();
+  var _pembelianPenawaranController = TextEditingController();
+  var _pembelian = Pembelian();
+  var _pembelianService = PembelianService();
+  return showDialog(
+      context: context,
+      barrierDismissible: true,
+      builder: (context) {
+        return AlertDialog(
+          actions: <Widget>[
+            ClipRRect(
+              borderRadius: BorderRadius.circular(6),
+              child: Container(
+                  color: Colors.red,
+                  child: TextButton(
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                      child: Text(
+                        'Cancel',
+                        style: TextStyle(color: Colors.white),
+                      ))),
+            ),
+            ClipRRect(
+              borderRadius: BorderRadius.circular(6),
+              child: Container(
+                  color: Colors.blue,
+                  child: TextButton(
+                      onPressed: () async {
+                        _pembelian.namabrg = _pembelianNameController.text;
+                        _pembelian.lokasi = _pembelianLokasiController.text;
+                        _pembelian.penawaran = _pembelianPenawaranController.text;
+                        _pembelianService.SavePembelian(_pembelian);
+
+                        Navigator.pop(context);
+                      },
+                      child: Text(
+                        'Save',
+                        style: TextStyle(color: Colors.white),
+                      ))),
+            ),
+          ],
+          title: Text('Pembelian'),
+          content: SingleChildScrollView(
+            child: Column(
+              children: <Widget>[
+                TextField(
+                  controller: _pembelianNameController,
+                  decoration: InputDecoration(hintText: "Name barang", labelText: "Name"),
+                ),
+                TextField(
+                  controller: _pembelianLokasiController,
+                  decoration: InputDecoration(hintText: 'Lokasi', labelText: 'Lokasi'),
+                ),
+                TextField(
+                  controller: _pembelianPenawaranController,
+                  decoration: InputDecoration(hintText: 'Penawran', labelText: 'Penawaran'),
+                )
+              ],
+            ),
+          ),
+        );
+      });
 }

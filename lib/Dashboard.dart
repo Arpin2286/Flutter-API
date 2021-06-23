@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:ruang_loak/Pembelian/pembelian_screen.dart';
+
 import 'about.dart' as about;
 import './userprofile.dart' as Profil;
 import 'package:ruang_loak/ui/home.dart';
+import 'auth/auth.dart';
 import 'detail.dart';
-import './notifikasi.dart';
-import './message.dart';
 
 class Dashboard extends StatefulWidget {
   @override
@@ -17,24 +18,22 @@ class _DashboardState extends State<Dashboard> {
     return Scaffold(
         backgroundColor: Colors.lightGreen[50],
         appBar: new AppBar(
-          title: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Text(
-                  "RUANG LOAK",
-                  style: TextStyle(fontWeight: FontWeight.bold),
-                ),
-              ]),
+          title: Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
+            Text(
+              "RUANG LOAK",
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
+          ]),
           actions: <Widget>[
             IconButton(
                 icon: Icon(
-                  Icons.notifications_none,
+                  Icons.shopping_bag_outlined,
                   size: 30,
                   color: Colors.white,
                 ),
                 onPressed: () {
                   Navigator.push(context, MaterialPageRoute(builder: (context) {
-                    return Notifikasi();
+                    return PembelianScreen();
                   }));
                 }),
           ],
@@ -53,8 +52,7 @@ class _DashboardState extends State<Dashboard> {
                       "https://images.unsplash.com/photo-1611774812120-79d97450b31c?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=334&q=80"),
                 ),
                 decoration: BoxDecoration(
-                    image: DecorationImage(
-                        image: AssetImage("assets/bg.jpg"), fit: BoxFit.cover)),
+                    image: DecorationImage(image: AssetImage("assets/bg.jpg"), fit: BoxFit.cover)),
               ),
               new ListTile(
                 leading: new Icon(Icons.person),
@@ -68,15 +66,6 @@ class _DashboardState extends State<Dashboard> {
                           "https://images.unsplash.com/photo-1611774812120-79d97450b31c?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=334&q=80",
                       lokasi: "Desa Kubutambahan",
                     );
-                  }));
-                },
-              ),
-              new ListTile(
-                leading: new Icon(Icons.email_outlined),
-                title: new Text("Inbox"),
-                onTap: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) {
-                    return Message();
                   }));
                 },
               ),
@@ -95,6 +84,15 @@ class _DashboardState extends State<Dashboard> {
                 onTap: () {
                   Navigator.push(context, MaterialPageRoute(builder: (context) {
                     return about.About();
+                  }));
+                },
+              ),
+              new ListTile(
+                leading: new Icon(Icons.exit_to_app),
+                title: new Text("Logout"),
+                onTap: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) {
+                    return LoginPage();
                   }));
                 },
               ),
@@ -247,8 +245,7 @@ class _DashboardState extends State<Dashboard> {
 }
 
 class Produk extends StatelessWidget {
-  Produk({Key key, this.nama, this.harga, this.image, this.star, this.lokasi})
-      : super(key: key);
+  Produk({Key key, this.nama, this.harga, this.image, this.star, this.lokasi}) : super(key: key);
   final String nama;
   final int harga;
   final String image;

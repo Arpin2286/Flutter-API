@@ -72,7 +72,7 @@ class _AboutState extends State<About> {
                     children: <Widget>[
                       CircleAvatar(
                         backgroundImage: NetworkImage(
-                          "https://media-exp1.licdn.com/dms/image/C5603AQHbZKgzo1QAyg/profile-displayphoto-shrink_200_200/0/1612793112343?e=1619049600&v=beta&t=lF-xB5VBzKwcjh9BH_Efp7Uk59YOd95Bczh7ekTPsrw",
+                          "https://media-exp1.licdn.com/dms/image/C5603AQHbZKgzo1QAyg/profile-displayphoto-shrink_200_200/0/1612793112343?e=1628121600&v=beta&t=Ah36qecUhez-m6h2TdgumMc1bqMHkHtnkWCsRVlGS_k",
                         ),
                         radius: 90,
                       ),

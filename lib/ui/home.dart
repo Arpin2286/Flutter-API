@@ -14,7 +14,7 @@ class InputScreen extends StatefulWidget {
 }
 
 class _InputScreenState extends State<InputScreen> {
-  final String url = "http://192.168.1.4:80/api/barang"; //Ip cek pakai Ipconfig
+  final String url = "http://192.168.223.162:80/api/barang"; //Ip cek pakai Ipconfig
 
   Future getData() async {
     var response = await http.get(Uri.parse(url));
@@ -24,7 +24,7 @@ class _InputScreenState extends State<InputScreen> {
 
   Future deleteData(String dataId) async {
     final String url =
-        "http://192.168.1.4:80/api/barang/" + dataId; //Ip cek pakai Ipconfig
+        "http://192.168.223.162:80/api/barang/" + dataId; //Ip cek pakai Ipconfig
     var response = await http.delete(Uri.parse(url));
 
     return jsonDecode(response.body);
